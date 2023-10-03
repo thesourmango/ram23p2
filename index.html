@@ -12,13 +12,14 @@
         <form v-if="visible">
             <label for="email">Email:</label>
             <input type="email" v-model="email">
-            <button type="submit" @click.prevent="submitForm">Sign up!</button> <!-- Kör submitform, preventdefault()-->
+            <submit-button></submit-button>
         </form>
         <h2 v-else>Tack nu får du spam!</h2>
     </div>
 
 </body>
 <script>
+    // app är vår "rot"-komponent eller instans, main instance, vue instance
     let app = Vue.createApp({
         data() {
             return {
@@ -26,11 +27,15 @@
                 email: "bistromd@arcada.fi",
                 visible: true
             }
-        },
+        }
+    })
+    // Komponenter är också instanser av vue
+    app.component("submit-button", {
+        template: '<button type="submit" @click.prevent="submitForm">Sign up!</button>',
         methods: {
             submitForm() {
                 console.log("hello")
-                this.visible = false
+                this.$root.visible = false // Dirty hack, vi går igenom emit nästa gång
             }
         }
     })
