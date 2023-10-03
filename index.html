@@ -10,8 +10,9 @@
     <div id="app">
         <h1>{{greeting}}</h1>
         <form v-if="visible">
-            <label for="email">Email:</label>
-            <input type="email" v-model="email">
+            <email-component></email-component>
+            <email-component></email-component>
+            <email-component></email-component>
             <submit-button></submit-button>
         </form>
         <h2 v-else>Tack nu får du spam!</h2>
@@ -24,7 +25,6 @@
         data() {
             return {
                 greeting: "Hello from Vue 3",
-                email: "bistromd@arcada.fi",
                 visible: true
             }
         }
@@ -36,6 +36,14 @@
             submitForm() {
                 console.log("hello")
                 this.$root.visible = false // Dirty hack, vi går igenom emit nästa gång
+            }
+        }
+    })
+    app.component("email-component", {
+        template: '<label for="email">Email:</label><input type="email" v-model="email">',
+        data() {
+            return {
+                email: "bistromd@arcada.fi"
             }
         }
     })
