@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <head>
+    <meta charset="UTF-8">
     <title>Min första vue sida</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -9,11 +10,12 @@
     <div id="app">
         <h1>{{greeting}}</h1>
 
-        <form>
+        <form v-if="visible">
             <label for="email">Email:</label>
             <input type="email" v-model="email">
-            <button type="submit">Sign up!</button>
+            <button type="submit" @click.prevent="submitForm">Sign up!</button> <!-- Kör submitform, preventdefault()-->
         </form>
+        <h2 v-else>Tack nu får du spam!</h2>
     </div>
 
 </body>
@@ -24,6 +26,12 @@
                 greeting: "Hello from Vue 3",
                 email: "bistromd@arcada.fi",
                 visible: true
+            }
+        },
+        methods: {
+            submitForm() {
+                console.log("hello")
+                this.visible = false
             }
         }
     }
